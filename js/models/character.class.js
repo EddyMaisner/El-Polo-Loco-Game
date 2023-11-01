@@ -28,6 +28,8 @@ class Character extends movableObject {
 
             if (this.world.keyboard.RIGHT) {
 
+
+            // Walk animation     
             let i = this.currentImage % this.IMAGES_WALKING.length; // let i = 7 % 6 => 1 , Rest5     % Modulu = der Mathematische rest 
             // i = 0,1,2,3,4,5, = 0,1,2,3,4,5, = 0,1,2,3,4,5,
             let path = this.IMAGES_WALKING[i];
