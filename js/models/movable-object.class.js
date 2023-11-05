@@ -8,6 +8,22 @@ class movableObject {
     currentImage = 0;
     speed = 0.15;
     otherDirection = false;    // img gespiegeld
+    speedY = 0;
+    acceleration = 2.5; // beschleunigung
+
+
+    applyGravity() {
+        setInterval(() => {
+            if (this.isAboverGround() || this.speedY > 0) {
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+            }
+        }, 1000 / 25); // geschwindigkeit der grafitation
+    }
+
+    isAboverGround() {
+        return this.y < 130;
+    }
 
     loadImage(path) {
         this.img = new Image();
@@ -27,23 +43,29 @@ class movableObject {
         });
     }
 
-    playAnimation(images){
-         // Walk animation     
-         let i = this.currentImage % this.IMAGES_WALKING.length; // let i = 7 % 6 => 1 , Rest5     % Modulu = der Mathematische rest 
-         // i = 0,1,2,3,4,5, = 0,1,2,3,4,5, = 0,1,2,3,4,5,
-         let path = images[i];
-         this.img = this.imageCache[path];
-         this.currentImage++;
+    playAnimation(images) {
+        // Walk animation     
+        let i = this.currentImage % this.IMAGES_WALKING.length; // let i = 7 % 6 => 1 , Rest5     % Modulu = der Mathematische rest 
+        // i = 0,1,2,3,4,5, = 0,1,2,3,4,5, = 0,1,2,3,4,5,
+        let path = images[i];
+        this.img = this.imageCache[path];
+        this.currentImage++;
     }
 
     moveRight() {
-        console.log("moveRight");
+        this.x += this.speed;
+
+
     }
 
     moveLeft() {
-        setInterval(() => {
-            this.x -= this.speed;
-        }, 1000 / 60);
+        this.x -= this.speed;
 
+
+
+    }
+
+    jump() {
+        this.speedY = 30;
     }
 }
