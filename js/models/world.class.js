@@ -9,7 +9,7 @@ class World {
     camera_x = 0;
 
 
-    constructor(canvas,keyboard) {
+    constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
         this.canvas = canvas;
         this.keyboard = keyboard;
@@ -34,7 +34,7 @@ class World {
         this.addObjectsToMap(this.level.enemies);
 
         this.ctx.translate(-this.camera_x, 0);
-        
+
 
         // Draw wird immer wieder aufgerufen
         let self = this;
@@ -44,22 +44,28 @@ class World {
     }
 
     addObjectsToMap(objects) {
-        objects.forEach(o =>{
+        objects.forEach(o => {
             this.addToMap(o);
         });
     }
 
     addToMap(mo) {
-        
-            if (mo.otherDirection) {
-                this.ctx.save();                    // hier speichern wir das bild im canvas 
-                this.ctx.translate(mo.width, 0);    // hier ändern wir das bild und spiegeln es 
-                this.ctx.scale(-1, 1);              // das bild wird zurück auf die anfangs ungespiegelte position des bildes positioniert , weil es beim spiegeln um sich selbst dreht und um 1 bzw um sich selbst versetzt wird. 
-                mo.x = mo.x * -1;                   // hier wirds nochmal mit der x koordinate um 1 zurück zum platz positioniert 
-            }
-            this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
-            if (mo.otherDirection) {
-                mo.x = mo.x * -1; // hier dreht man die x koordinate umdrehen
-                this.ctx.restore();
-            }
-}}
+
+        if (mo.otherDirection) {
+            this.ctx.save();                    // hier speichern wir das bild im canvas 
+            this.ctx.translate(mo.width, 0);    // hier ändern wir das bild und spiegeln es 
+            this.ctx.scale(-1, 1);              // das bild wird zurück auf die anfangs ungespiegelte position des bildes positioniert , weil es beim spiegeln um sich selbst dreht und um 1 bzw um sich selbst versetzt wird. 
+            mo.x = mo.x * -1;                   // hier wirds nochmal mit der x koordinate um 1 zurück zum platz positioniert 
+        }
+        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+        this.ctx.beginPath();
+        this.ctx.lineWidth = '2';
+        this.ctx.strokeStyle = 'red';
+        this.ctx.rect(mo.x, mo.y, mo.x + mo.width, mo.height); // die umrandung der jeweiligen cbilder/charakter
+        this.ctx.stroke();
+        if (mo.otherDirection) {
+            mo.x = mo.x * -1; // hier dreht man die x koordinate umdrehen
+            this.ctx.restore();
+        }
+    }
+}
