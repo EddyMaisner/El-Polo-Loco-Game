@@ -22,17 +22,12 @@ class World {
     };
 
     draw() {
-
-
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
         this.ctx.translate(this.camera_x, 0);
-
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
-
         this.ctx.translate(-this.camera_x, 0);
 
 
@@ -50,22 +45,26 @@ class World {
     }
 
     addToMap(mo) {
+        if (mo.otherDirection) {
+            this.flipImage(mo);
+        }
+        mo.draw(this.ctx);                  // mo = movableobjects == function draw(ctx) = draw(context){...}
+        mo.drawFrame(this.ctx);             // mo = movableobjects == function drawFrame(ctx) = drawFrame(context){...}
 
         if (mo.otherDirection) {
-            this.ctx.save();                    // hier speichern wir das bild im canvas 
-            this.ctx.translate(mo.width, 0);    // hier ändern wir das bild und spiegeln es 
-            this.ctx.scale(-1, 1);              // das bild wird zurück auf die anfangs ungespiegelte position des bildes positioniert , weil es beim spiegeln um sich selbst dreht und um 1 bzw um sich selbst versetzt wird. 
-            mo.x = mo.x * -1;                   // hier wirds nochmal mit der x koordinate um 1 zurück zum platz positioniert 
+            this.flipImageBack(mo);
         }
-        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
-        this.ctx.beginPath();
-        this.ctx.lineWidth = '2';
-        this.ctx.strokeStyle = 'red';
-        this.ctx.rect(mo.x, mo.y, mo.x + mo.width, mo.height); // die umrandung der jeweiligen cbilder/charakter
-        this.ctx.stroke();
-        if (mo.otherDirection) {
-            mo.x = mo.x * -1; // hier dreht man die x koordinate umdrehen
-            this.ctx.restore();
-        }
+    }
+
+    flipImage(mo) {
+        this.ctx.save();                    // hier speichern wir das bild im canvas 
+        this.ctx.translate(mo.width, 0);    // hier ändern wir das bild und spiegeln es 
+        this.ctx.scale(-1, 1);              // das bild wird zurück auf die anfangs ungespiegelte position des bildes positioniert , weil es beim spiegeln um sich selbst dreht und um 1 bzw um sich selbst versetzt wird. 
+        mo.x = mo.x * -1;                   // hier wirds nochmal mit der x koordinate um 1 zurück zum platz positioniert 
+    }
+
+    flipImageBack(mo) {
+        mo.x = mo.x * -1;                   // hier dreht man die x koordinate umdrehen
+        this.ctx.restore();
     }
 }
