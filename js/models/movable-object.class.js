@@ -35,7 +35,7 @@ class movableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken) { // hier wird gesagt das nur noch der border am char || chicken angezeigt wird
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) { // hier wird gesagt das nur noch der border am char || chicken angezeigt wird
             ctx.beginPath();
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'red';

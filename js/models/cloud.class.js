@@ -1,7 +1,7 @@
 class cloud extends movableObject {
-    y = 20;
-    height = 300;
-    width = 450;
+    y = 5;
+    height = 250;
+    width = 400;
     
 
     constructor(){
