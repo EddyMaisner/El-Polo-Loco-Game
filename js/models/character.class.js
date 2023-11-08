@@ -2,7 +2,7 @@ class Character extends movableObject {
 
     height = 280;
     y = 30;
-    speed = 10;
+    speed = 6;
 
     IMAGES_WALKING = [
         './img/2_character_pepe/2_walk/W-21.png',
@@ -34,6 +34,15 @@ class Character extends movableObject {
         'img/2_character_pepe/5_dead/D-56.png',
         'img/2_character_pepe/5_dead/D-57.png'
     ];
+
+    IMAGES_HURT = [
+        'img/2_character_pepe/4_hurt/H-41.png',
+        'img/2_character_pepe/4_hurt/H-42.png',
+        'img/2_character_pepe/4_hurt/H-43.png'
+    ];
+    
+
+
     world;
     charakter_running_sound = new Audio('audio/character_running.mp3');
 
@@ -41,8 +50,8 @@ class Character extends movableObject {
         super().loadImage('./img/2_character_pepe/2_walk/W-21.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_DEAD);
-
         this.applyGravity();
         this.animate();
     }
@@ -74,13 +83,12 @@ class Character extends movableObject {
 
 
         setInterval(() => {  
-            if(this.isDead) {
-                this.playAnimation(this.IMAGES_DEAD);
-            }
-
-            else if (this.isAboverGround()) {
-                    // Jump animation
-                this.playAnimation(this.IMAGES_JUMPING);
+            if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD); // wenn tot dann die animation mit folgenden bildern
+            } else if(this.isHurt()){
+                this.playAnimation(this.IMAGES_HURT);   // wenn verletzt dann die animation mit folgenden bildern
+            } else  if (this.isAboverGround()) { 
+                this.playAnimation(this.IMAGES_JUMPING); // wenn springen dann die animation mit folgenden bildern
             } else { // wenn nicht dann die walk animation
 
                 if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
@@ -88,7 +96,7 @@ class Character extends movableObject {
                     this.playAnimation(this.IMAGES_WALKING);
                 }
             }
-        }, 50);
+        }, 80);
 
     }
 

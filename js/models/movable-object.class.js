@@ -11,6 +11,7 @@ class movableObject {
     speedY = 0;
     acceleration = 2.5; // beschleunigung
     energy = 100;
+    lastHit = 0;
 
 
     applyGravity() {
@@ -52,18 +53,27 @@ class movableObject {
             this.y < mo.y + mo.height; // 5. `this.y < mo.y + mo.height`: Schließlich wird überprüft, ob die obere Seite des Objekts, auf dem die Methode aufgerufen wird (repräsentiert durch `this.y`), weiter oben liegt als die untere Seite des anderen Objekts (`mo.y + mo.height`).
     }
 
-    hit(){
+    hit() {
         this.energy -= 5;      // hier wird der schaden je collision 5 vom hp abgezogen
-        if(this.energy < 0) { // hier wird gesagt das es nicht weiter als 0 gehen soll 
+        if (this.energy < 0) { // hier wird gesagt das es nicht weiter als 0 gehen soll 
             this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime(); // so speichert man zeit in zahlenformen 
         }
     }
 
-    isDead(){
-        return this.energy == 0;
+    isHurt() {
+        let timepassed = new Date().getTime() - this.lastHit;
+        timepassed = timepassed / 1000; // difference in seconds 
+        
+        return timepassed < 1;
     }
 
-    /**
+    isDead() {
+        return this.energy == 0;
+    }
+        /**
+         * 
          *  @param {Array} arr - ['img/image1.png', 'img/image2.png', 'img/image3.png', ....]
          */
 
@@ -71,14 +81,14 @@ class movableObject {
         arr.forEach((path) => {
             let img = new Image();
             img.src = path;
+            img.style = 'transform: scaleX(-1)';
             this.imageCache[path] = img;
         });
     }
 
     playAnimation(images) {
-        // Walk animation     
-        let i = this.currentImage % this.IMAGES_WALKING.length; // let i = 7 % 6 => 1 , Rest5     % Modulu = der Mathematische rest 
-        // i = 0,1,2,3,4,5, = 0,1,2,3,4,5, = 0,1,2,3,4,5,
+        
+        let i = this.currentImage % images.length; 
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
