@@ -10,6 +10,7 @@ class movableObject {
     otherDirection = false;    // img gespiegeld
     speedY = 0;
     acceleration = 2.5; // beschleunigung
+    energy = 100;
 
 
     applyGravity() {
@@ -49,6 +50,17 @@ class movableObject {
             this.y + this.height > mo.y && // 3. `this.y + this.height > mo.y &&`: In dieser Zeile wird überprüft, ob die untere Seite des Objekts, auf dem die Methode aufgerufen wird (repräsentiert durch `this.y + this.height`), weiter unten liegt als die obere Seite des anderen Objekts (`mo.y`).
             this.y < mo.x && // 4. `this.y < mo.x &&`: Hier wird überprüft, ob die obere Seite des Objekts, auf dem die Methode aufgerufen wird (repräsentiert durch `this.y`), weiter oben liegt als die linke Seite des anderen Objekts (`mo.x`)
             this.y < mo.y + mo.height; // 5. `this.y < mo.y + mo.height`: Schließlich wird überprüft, ob die obere Seite des Objekts, auf dem die Methode aufgerufen wird (repräsentiert durch `this.y`), weiter oben liegt als die untere Seite des anderen Objekts (`mo.y + mo.height`).
+    }
+
+    hit(){
+        this.energy -= 5;      // hier wird der schaden je collision 5 vom hp abgezogen
+        if(this.energy < 0) { // hier wird gesagt das es nicht weiter als 0 gehen soll 
+            this.energy = 0;
+        }
+    }
+
+    isDead(){
+        return this.energy == 0;
     }
 
     /**
