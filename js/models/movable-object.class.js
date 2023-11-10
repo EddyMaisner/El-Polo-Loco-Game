@@ -46,11 +46,11 @@ class movableObject {
         }
     }
 
-    isColliding(mo) {         //  `isColliding(mo) {`: Diese Zeile definiert die Methode `isColliding`, die ein Argument `mo` erwartet. Dieses Argument sollte das andere Objekt darstellen, mit dem die Kollision überprüft werden soll.
-        return this.x + this.width > mo.x && // 2. `return this.x + this.width > mo.x &&`: Hier wird überprüft, ob die rechte Seite des Objekts, auf dem die Methode aufgerufen wird (repräsentiert durch `this.x + this.width`), weiter rechts liegt als die linke Seite des anderen Objekts (`mo.x`).
-            this.y + this.height > mo.y && // 3. `this.y + this.height > mo.y &&`: In dieser Zeile wird überprüft, ob die untere Seite des Objekts, auf dem die Methode aufgerufen wird (repräsentiert durch `this.y + this.height`), weiter unten liegt als die obere Seite des anderen Objekts (`mo.y`).
-            this.y < mo.x && // 4. `this.y < mo.x &&`: Hier wird überprüft, ob die obere Seite des Objekts, auf dem die Methode aufgerufen wird (repräsentiert durch `this.y`), weiter oben liegt als die linke Seite des anderen Objekts (`mo.x`)
-            this.y < mo.y + mo.height; // 5. `this.y < mo.y + mo.height`: Schließlich wird überprüft, ob die obere Seite des Objekts, auf dem die Methode aufgerufen wird (repräsentiert durch `this.y`), weiter oben liegt als die untere Seite des anderen Objekts (`mo.y + mo.height`).
+    isColliding(mo) {                                //  `isColliding(mo) {`: Diese Zeile definiert die Methode `isColliding`, die ein Argument `mo` erwartet. Dieses Argument sollte das andere Objekt darstellen, mit dem die Kollision überprüft werden soll.
+        return this.x + this.width > mo.x &&         // 2. `return this.x + this.width > mo.x &&`: Hier wird überprüft, ob die rechte Seite des Objekts, auf dem die Methode aufgerufen wird (repräsentiert durch `this.x + this.width`), weiter rechts liegt als die linke Seite des anderen Objekts (`mo.x`).
+            this.y + this.height > mo.y &&           // 3. `this.y + this.height > mo.y &&`: In dieser Zeile wird überprüft, ob die untere Seite des Objekts, auf dem die Methode aufgerufen wird (repräsentiert durch `this.y + this.height`), weiter unten liegt als die obere Seite des anderen Objekts (`mo.y`).
+            this.x < mo.x &&                        // 4. `this.y < mo.x &&`: Hier wird überprüft, ob die obere Seite des Objekts, auf dem die Methode aufgerufen wird (repräsentiert durch `this.y`), weiter oben liegt als die linke Seite des anderen Objekts (`mo.x`)
+            this.y < mo.y + mo.height;              // 5. `this.y < mo.y + mo.height`: Schließlich wird überprüft, ob die obere Seite des Objekts, auf dem die Methode aufgerufen wird (repräsentiert durch `this.y`), weiter oben liegt als die untere Seite des anderen Objekts (`mo.y + mo.height`).
     }
 
     hit() {
@@ -65,8 +65,7 @@ class movableObject {
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000; // difference in seconds 
-        
-        return timepassed < 1;
+        return timepassed < 5;
     }
 
     isDead() {
