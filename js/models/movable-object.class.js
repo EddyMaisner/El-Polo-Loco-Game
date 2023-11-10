@@ -1,11 +1,4 @@
-class movableObject {
-    x = 120;
-    y = 280;
-    img;
-    height = 150;
-    width = 100;
-    imageCache = {};
-    currentImage = 0;
+class movableObject extends DrawableObject {
     speed = 0.15;
     otherDirection = false;    // img gespiegeld
     speedY = 0;
@@ -25,15 +18,6 @@ class movableObject {
 
     isAboverGround() {
         return this.y < 130;
-    }
-
-    loadImage(path) {
-        this.img = new Image(); // this.img = document.getElementById('image') <img id = "image" />
-        this.img.src = path;
-    }
-
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height); // verschoben nach world.js zur draw function 
     }
 
     drawFrame(ctx) {
@@ -65,28 +49,15 @@ class movableObject {
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000; // difference in seconds 
-        return timepassed < 5;
+        return timepassed < 1;
     }
 
     isDead() {
         return this.energy == 0;
     }
-        /**
-         * 
-         *  @param {Array} arr - ['img/image1.png', 'img/image2.png', 'img/image3.png', ....]
-         */
-
-    loadImages(arr) {
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            img.style = 'transform: scaleX(-1)';
-            this.imageCache[path] = img;
-        });
-    }
-
-    playAnimation(images) {
         
+
+    playAnimation(images) {   
         let i = this.currentImage % images.length; 
         let path = images[i];
         this.img = this.imageCache[path];
@@ -95,15 +66,10 @@ class movableObject {
 
     moveRight() {
         this.x += this.speed;
-
-
     }
 
     moveLeft() {
         this.x -= this.speed;
-
-
-
     }
 
     jump() {
