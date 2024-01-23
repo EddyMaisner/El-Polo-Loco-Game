@@ -20,15 +20,6 @@ class movableObject extends DrawableObject {
         return this.y < 130;
     }
 
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) { // hier wird gesagt das nur noch der border am char || chicken angezeigt wird
-            ctx.beginPath();
-            ctx.lineWidth = '2';
-            ctx.strokeStyle = 'red';
-            ctx.rect(this.x, this.y, this.width, this.height); // die umrandung der jeweiligen cbilder/charakter
-            ctx.stroke();
-        }
-    }
 
     isColliding(mo) {                                //  `isColliding(mo) {`: Diese Zeile definiert die Methode `isColliding`, die ein Argument `mo` erwartet. Dieses Argument sollte das andere Objekt darstellen, mit dem die Kollision überprüft werden soll.
         return this.x + this.width > mo.x &&         // 2. `return this.x + this.width > mo.x &&`: Hier wird überprüft, ob die rechte Seite des Objekts, auf dem die Methode aufgerufen wird (repräsentiert durch `this.x + this.width`), weiter rechts liegt als die linke Seite des anderen Objekts (`mo.x`).

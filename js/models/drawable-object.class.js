@@ -18,6 +18,16 @@ class DrawableObject {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height); // verschoben nach world.js zur draw function 
     }
 
+    drawFrame(ctx) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) { // hier wird gesagt das nur noch der border am char || chicken angezeigt wird
+            ctx.beginPath();
+            ctx.lineWidth = '2';
+            ctx.strokeStyle = 'red';
+            ctx.rect(this.x, this.y, this.width, this.height); // die umrandung der jeweiligen cbilder/charakter
+            ctx.stroke();
+        }
+    }
+
     /**
          * 
          *  @param {Array} arr - ['img/image1.png', 'img/image2.png', 'img/image3.png', ....]
