@@ -17,8 +17,11 @@ class movableObject extends DrawableObject {
     }
 
     isAboverGround() {
+        if (this instanceof ThrowableObject) {  // throwableobjects should always all 
+            return true; 
+        } else {
         return this.y < 130;
-    }
+    }}
 
 
     isColliding(mo) {                                //  `isColliding(mo) {`: Diese Zeile definiert die Methode `isColliding`, die ein Argument `mo` erwartet. Dieses Argument sollte das andere Objekt darstellen, mit dem die Kollision überprüft werden soll.
