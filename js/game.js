@@ -1,18 +1,20 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let screenImg;
 
-function init(){
+function init() {
+    let screenImg = document.getElementById('StartScreenContainer');
+    screenImg.style.display = 'none';
     canvas = document.getElementById('canvas');
+    canvas.style.display = 'inline';
     world = new World(canvas, keyboard);
- 
-    
-    console.log('My Character is', world.character);
+
 }
 
 window.addEventListener("keydown", (e) => {
-    
-    if (e.keyCode === 39 ){
+
+    if (e.keyCode === 39) {
         keyboard.RIGHT = true;
     }
 
@@ -35,11 +37,11 @@ window.addEventListener("keydown", (e) => {
     if (e.keyCode === 68) {
         keyboard.D = true;
     }
-    
+
 });
 
 window.addEventListener("keyup", (e) => {
-    if (e.keyCode === 39 ){
+    if (e.keyCode === 39) {
         keyboard.RIGHT = false;
     }
 
